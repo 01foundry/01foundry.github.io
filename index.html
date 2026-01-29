@@ -1,5 +1,1220 @@
-<html>
-  <body>
-    Welcome
-  </body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroOne Works | 零一工场 - 青少年人生创业孵化器</title>
+    <meta name="description" content="Back to First Principles. Born to Make Waves. 青少年人生创业孵化器，从0到1孵化你的个人创举。">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-deep: #050505;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --accent-cyan: #00ffff;
+            --accent-green: #00ff00;
+            --border-dim: #222222;
+            --border-glow: #00ffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+        }
+
+        /* Particle Canvas */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0) 100%);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo .zero { color: var(--accent-cyan); }
+        .logo .one { color: var(--accent-green); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Sections */
+        section {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 8rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 0;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .typewriter {
+            display: inline;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--accent-cyan);
+            margin-left: 4px;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .hero-desc span {
+            color: var(--text-muted);
+            margin: 0 0.5rem;
+        }
+
+        .cta-button {
+            font-family: 'JetBrains Mono', monospace;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            letter-spacing: 0.1em;
+        }
+
+        .cta-button:hover {
+            background: var(--text-primary);
+            color: var(--bg-deep);
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
+
+        .cta-button .arrow {
+            transition: transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .cta-button:hover .arrow {
+            transform: translateX(5px);
+        }
+
+        /* Section Headers */
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        /* Philosophy Section */
+        #philosophy {
+            background: linear-gradient(180deg, var(--bg-deep) 0%, #080808 100%);
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .philosophy-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .philosophy-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .formula-card {
+            padding: 2rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .formula-card.wrong {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-dim);
+            opacity: 0.5;
+        }
+
+        .formula-card.right {
+            background: rgba(0,255,255,0.03);
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 0 40px rgba(0,255,255,0.1);
+        }
+
+        .formula-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .formula-card.wrong .formula-number { color: var(--text-muted); }
+        .formula-card.right .formula-number { color: var(--accent-cyan); }
+
+        .formula-arrow {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .formula-card.right .formula-arrow { color: var(--accent-cyan); }
+
+        .formula-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .formula-card.right .formula-label { color: var(--text-primary); }
+
+        .formula-x {
+            margin-left: auto;
+            font-size: 1.5rem;
+            color: #ff4444;
+        }
+
+        .formula-check {
+            margin-left: auto;
+            font-size: 1.5rem;
+            color: var(--accent-green);
+        }
+
+        /* Difference Section */
+        #difference {
+            background: var(--bg-deep);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .comparison-card {
+            padding: 3rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card.old {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+        }
+
+        .comparison-card.new {
+            background: rgba(0,255,255,0.02);
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 0 60px rgba(0,255,255,0.05);
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .comparison-card.new:hover {
+            box-shadow: 0 0 80px rgba(0,255,255,0.1);
+        }
+
+        .card-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .comparison-card.old .card-header { color: var(--text-muted); }
+        .comparison-card.new .card-header { color: var(--accent-cyan); }
+
+        .card-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-card.old .card-title { color: var(--text-secondary); }
+        .comparison-card.new .card-title { color: var(--text-primary); }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-dim);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-card.old .card-list li { color: var(--text-muted); }
+        .comparison-card.new .card-list li { color: var(--text-secondary); }
+
+        .list-icon {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+        }
+
+        .comparison-card.old .list-icon { color: var(--text-muted); }
+        .comparison-card.new .list-icon { color: var(--accent-green); }
+
+        .quote-box {
+            margin-top: 4rem;
+            padding: 2rem;
+            border-left: 2px solid var(--accent-cyan);
+            background: rgba(0,255,255,0.02);
+        }
+
+        .quote-box p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Process Section */
+        #process {
+            background: linear-gradient(180deg, var(--bg-deep) 0%, #080808 100%);
+        }
+
+        .timeline {
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-green));
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            padding: 3rem 0;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 4rem;
+            height: 4rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--bg-deep);
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(2) .timeline-marker {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+        }
+
+        .timeline-item:nth-child(3) .timeline-marker {
+            background: var(--accent-green);
+        }
+
+        .timeline-content h3 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content .zh-title {
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* Showcase Section */
+        #showcase {
+            background: var(--bg-deep);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .venture-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .venture-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 40px rgba(0,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .venture-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent-green);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .venture-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .venture-founder {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-dim);
+        }
+
+        .venture-results {
+            list-style: none;
+        }
+
+        .venture-results li {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-icon {
+            color: var(--accent-cyan);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(180deg, var(--bg-deep) 0%, #030303 100%);
+            text-align: center;
+        }
+
+        .contact-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 1rem;
+        }
+
+        .contact-subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-cyan);
+            margin-bottom: 3rem;
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1rem 2rem;
+            background: var(--text-primary);
+            border: none;
+            color: var(--bg-deep);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.1em;
+        }
+
+        .submit-button:hover {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+
+        .contact-alt {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-dim);
+        }
+
+        .contact-alt p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .contact-email {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 2rem 4rem;
+            border-top: 1px solid var(--border-dim);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #030303;
+        }
+
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Scroll Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 1rem 2rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(5,5,5,0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            section {
+                padding: 6rem 2rem;
+            }
+
+            .philosophy-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 1.5rem;
+            }
+
+            .timeline-item {
+                gap: 2rem;
+            }
+
+            .timeline-marker {
+                width: 3rem;
+                height: 3rem;
+                font-size: 0.85rem;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#hero" class="logo">
+            <span class="zero">0</span><span class="one">1</span>works
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#difference">Difference</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#showcase">Ventures</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="typewriter" id="typewriter"></span><span class="cursor"></span>
+            </h1>
+            <p class="hero-subtitle">Born to Make Waves.</p>
+            <p class="hero-desc">
+                青少年人生创业孵化器 <span>|</span> A Venture Builder for the Next Generation
+            </p>
+            <a href="#contact" class="cta-button">
+                START YOUR VENTURE <span class="arrow">-></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// The Philosophy</p>
+                <h2 class="section-title">Don't Copy. Create.</h2>
+                <p class="section-subtitle">拒绝复制，去创造。</p>
+            </div>
+
+            <div class="philosophy-grid">
+                <div class="philosophy-text reveal">
+                    <p>这是一个充满了复制品的世界。传统的升学路径教你如何"扮演"别人，而我们教你如何"重塑"自己。</p>
+                    <p>我们信仰马斯克的第一性原理：剥离标签，回归热情的原点 (<span class="mono" style="color: var(--accent-cyan)">Zero</span>)，通过极致执行，创造不可复制的实绩 (<span class="mono" style="color: var(--accent-green)">One</span>)。</p>
+                    <p>在AI席卷一切的时代，平庸的知识和重复的技能已不再稀缺。唯有创造力——从<span class="mono" style="color: var(--accent-cyan)">0</span>到<span class="mono" style="color: var(--accent-green)">1</span>——是人类最后的壁垒。</p>
+                </div>
+                <div class="philosophy-visual reveal">
+                    <div class="formula-card wrong">
+                        <span class="formula-number">1</span>
+                        <span class="formula-arrow">→</span>
+                        <span class="formula-number">N</span>
+                        <div class="formula-label">Analogy / Copying</div>
+                        <span class="formula-x">✕</span>
+                    </div>
+                    <div class="formula-card right">
+                        <span class="formula-number">0</span>
+                        <span class="formula-arrow">→</span>
+                        <span class="formula-number">1</span>
+                        <div class="formula-label">First Principles / Creation</div>
+                        <span class="formula-check">✓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Difference Section -->
+    <section id="difference">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// The Difference</p>
+                <h2 class="section-title">Beyond Packaging.</h2>
+                <p class="section-subtitle">不止于包装，更重在孵化。</p>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comparison-card old reveal">
+                    <p class="card-header">The Old Way</p>
+                    <h3 class="card-title">Packaging</h3>
+                    <ul class="card-list">
+                        <li><span class="list-icon">—</span> 美化简历</li>
+                        <li><span class="list-icon">—</span> 参加现成项目</li>
+                        <li><span class="list-icon">—</span> 同质化竞争</li>
+                        <li><span class="list-icon">—</span> 外在修饰</li>
+                    </ul>
+                </div>
+                <div class="comparison-card new reveal">
+                    <p class="card-header">The 01 Way</p>
+                    <h3 class="card-title">Incubation</h3>
+                    <ul class="card-list">
+                        <li><span class="list-icon">+</span> 孵化个人创举 (Venture)</li>
+                        <li><span class="list-icon">+</span> 打造 MVP 产品</li>
+                        <li><span class="list-icon">+</span> 构建代表作 (Signature Work)</li>
+                        <li><span class="list-icon">+</span> 内核重塑</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-box reveal">
+                <p>"没有硬核实体的包装，是一戳即破的泡沫。"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// How It Works</p>
+                <h2 class="section-title">From Zero to One.</h2>
+                <p class="section-subtitle">从 Passion 到 Venture 的孵化之旅。</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker">01</div>
+                    <div class="timeline-content">
+                        <h3>Discovery</h3>
+                        <p class="zh-title">归零 · 探寻第一因</p>
+                        <p>深度挖掘，寻找那个让你废寝忘食、眼里有光的底层内核 (Kernel)。热情不是兴趣清单，而是你愿意为之付出长期代价的第一性动力。</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker">02</div>
+                    <div class="timeline-content">
+                        <h3>Productize</h3>
+                        <p class="zh-title">重构 · 孵化个人创举</p>
+                        <p>极客执行。将 Passion 转化为实体 Venture——不是做题，是做事。它可以是运营中的 NPO、一场策展、一项实地研究，或者一个初创产品。形式不限，但必须是你主导的"从无到有"。</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-marker">03</div>
+                    <div class="timeline-content">
+                        <h3>Hardcore Results</h3>
+                        <p class="zh-title">登顶 · 硬核实绩交付</p>
+                        <p>市场验证、影响力扩张、个人IP确立。无论是用户量、社会影响力、还是竞赛金牌，必须产出可量化的硬核结果。名校 Offer 只是这个过程的副产品。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase Section -->
+    <section id="showcase">
+        <div class="container">
+            <div class="reveal">
+                <p class="section-label">// Featured Ventures</p>
+                <h2 class="section-title">What We Build.</h2>
+                <p class="section-subtitle">我们展示项目，而非仅仅是录取。</p>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="venture-card reveal">
+                    <p class="venture-tag">AI + Education</p>
+                    <h3 class="venture-title">ReadMate</h3>
+                    <p class="venture-subtitle">AI辅助阅读障碍儿童学习平台</p>
+                    <p class="venture-founder">Founder: Mark Z. | Grade 11</p>
+                    <ul class="venture-results">
+                        <li><span class="result-icon">→</span> 独立开发完整 App</li>
+                        <li><span class="result-icon">→</span> 获得 2,000+ 活跃用户</li>
+                        <li><span class="result-icon">→</span> 获得种子基金支持</li>
+                    </ul>
+                </div>
+
+                <div class="venture-card reveal">
+                    <p class="venture-tag">Environmental Tech</p>
+                    <h3 class="venture-title">GreenTrace</h3>
+                    <p class="venture-subtitle">社区碳足迹追踪与激励系统</p>
+                    <p class="venture-founder">Founder: Sarah L. | Grade 10</p>
+                    <ul class="venture-results">
+                        <li><span class="result-icon">→</span> 落地 3 个社区试点</li>
+                        <li><span class="result-icon">→</span> 减碳量达 50 吨/年</li>
+                        <li><span class="result-icon">→</span> 获国际青年环保奖</li>
+                    </ul>
+                </div>
+
+                <div class="venture-card reveal">
+                    <p class="venture-tag">Cultural Innovation</p>
+                    <h3 class="venture-title">Heritage.io</h3>
+                    <p class="venture-subtitle">非遗工艺数字化传承平台</p>
+                    <p class="venture-founder">Founder: Kevin W. | Grade 12</p>
+                    <ul class="venture-results">
+                        <li><span class="result-icon">→</span> 记录 50+ 位非遗传承人</li>
+                        <li><span class="result-icon">→</span> 平台访问量 100K+</li>
+                        <li><span class="result-icon">→</span> 与省级博物馆达成合作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="reveal">
+                <h2 class="contact-title">Ready to build your masterpiece?</h2>
+                <p class="contact-subtitle">// We only accept limited students per year.</p>
+            </div>
+
+            <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label>NAME</label>
+                    <input type="text" name="name" required placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label>GRADE</label>
+                    <input type="text" name="grade" required placeholder="e.g. Grade 10">
+                </div>
+                <div class="form-group">
+                    <label>YOUR PASSION (OPTIONAL)</label>
+                    <textarea name="passion" placeholder="What makes your eyes light up?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>EMAIL / WECHAT</label>
+                    <input type="text" name="contact" required placeholder="How can we reach you?">
+                </div>
+                <button type="submit" class="submit-button">SUBMIT APPLICATION</button>
+            </form>
+
+            <div class="contact-alt reveal">
+                <p>Or reach us directly</p>
+                <a href="mailto:hello@01works.io" class="contact-email">hello@01works.io</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-text">&copy; 2026 ZeroOne Works. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#philosophy">Philosophy</a>
+            <a href="#process">Process</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Particle Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 1.5 + 0.5;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(0, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 255, 255, ${0.1 * (1 - dist / 150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Typewriter Effect
+        const typewriterElement = document.getElementById('typewriter');
+        const phrases = [
+            'Hello, Future Founders.',
+            'Back to First Principles.'
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let isPaused = false;
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+
+            if (isPaused) {
+                setTimeout(typeWriter, 1000);
+                isPaused = false;
+                return;
+            }
+
+            if (isDeleting) {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 30 : 80;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isPaused = true;
+                isDeleting = true;
+                typeSpeed = 1500;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+
+        typeWriter();
+
+        // Scroll Reveal
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Form Submission
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you for your application! We will contact you soon.');
+            e.target.reset();
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
 </html>
