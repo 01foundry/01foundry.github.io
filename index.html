@@ -1006,7 +1006,10 @@
                 <p class="contact-subtitle">// We only accept limited students per year.</p>
             </div>
 
-            <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+            <form class="contact-form reveal" action="https://formsubmit.co/yu.sun.cs@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New 01works Application">
+                <input type="hidden" name="_next" value="https://01foundry.github.io/?submitted=true">
+                <input type="hidden" name="_captcha" value="false">
                 <div class="form-group">
                     <label>NAME</label>
                     <input type="text" name="name" required placeholder="Your name">
@@ -1165,12 +1168,6 @@
             document.querySelector('.nav-links').classList.toggle('active');
         }
 
-        // Form Submission
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('Thank you for your application! We will contact you soon.');
-            e.target.reset();
-        }
 
         // Smooth scroll for nav links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
